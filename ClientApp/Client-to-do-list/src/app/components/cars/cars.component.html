@@ -1,0 +1,14 @@
+<div class="container">
+    <button class="btn btn-primary" (click)="AddCar()" >Add car</button>
+    <p>{{addCarSatatus}}</p>
+    <hr>
+    <div class="row">
+        <div app-car class="col-md-4"></div>
+        <div app-car class="col-md-4"></div>
+        <div app-car class="col-md-4"></div>
+    </div>
+
+    <input type="text" #myInp (input)="InputChange(myInp.value)">
+
+
+</div> 
