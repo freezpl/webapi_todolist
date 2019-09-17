@@ -1,0 +1,17 @@
+<button class="btn btn-primary" (click)="AddCar()" >Add car</button>
+    <p *ngIf="addCarSatatus; else notAdded">Car is added</p>
+    <ng-template #notAdded>
+        <p>Car not added</p>
+    </ng-template>
+    <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+        <label>Car name:</label>
+        <input type="text" [(ngModel)]="carName" (input)="addCarSatatus = false" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Car year:</label>
+        <input type="number" [(ngModel)]="carYear" (input)="addCarSatatus = false" class="form-control">
+    </div>    
+    </div>
+    </div>

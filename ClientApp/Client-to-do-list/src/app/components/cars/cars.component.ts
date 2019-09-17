@@ -7,16 +7,16 @@ import { Component } from '@angular/core';
 })
 export class CarsComponent {
   
-  addCarSatatus ="";
+  cars:{name:string, year:number}[];
+
+  addCarSatatus:boolean;
 
   constructor(){
-  }
-
-  AddCar(){
-    this.addCarSatatus = "Car is added!";
-  }
-
-  InputChange(value){
-    this.addCarSatatus = value;
+    
+    this.cars = [
+    {name: 'Ford', year: 2011},
+    {name: 'BMW', year: 2015},
+    {name: 'Audi', year: 2012},
+    ];
   }
 }
