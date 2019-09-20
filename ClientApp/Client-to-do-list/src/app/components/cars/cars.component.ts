@@ -19,4 +19,8 @@ export class CarsComponent {
     {name: 'Audi', year: 2012},
     ];
   }
+
+  AddCar(car:{name:string, year:number}){
+    this.cars.push(car);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-add-car',
@@ -11,10 +11,12 @@ export class AddCarComponent{
 
   addCarSatatus:boolean;
 
-  AddCar(){
-    this.carName = '';
-    this.carYear = 2000;
+  @Output()
+  AddCarEmitter = new EventEmitter<{name:string, year:number}>();
+
+  AddNewCar(){
     this.addCarSatatus = true;
+    this.AddCarEmitter.emit({name:this.carName, year:this.carYear});
   }
  
   InputChange(value){

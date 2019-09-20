@@ -1,5 +1,5 @@
 <div class="container">
-    <app-add-car></app-add-car>
+    <app-add-car (AddCarEmitter)="AddCar($event)"></app-add-car>
     <hr>
     <div class="row">
         <div app-car class="col-md-4" *ngFor="let item of cars" [car]="item"></div>
