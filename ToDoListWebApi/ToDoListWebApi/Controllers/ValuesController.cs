@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryLayer.DAL.EntityModels;
 
 namespace ToDoListWebApi.Controllers
 {
@@ -10,10 +12,18 @@ namespace ToDoListWebApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        UserManager<UserEntity> _userManager;
+
+        public ValuesController(UserManager<UserEntity> userManager)
+        {
+            _userManager = userManager;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            //var u = _userManager.Users;
             return new string[] { "value1", "value2" };
         }
 
