@@ -22,5 +22,8 @@ namespace DtoModels
 
         [DataMember(Name = "category")]
         public CategoryDto Category { get; set; }
-        public IEnumerable<TagDto> Tags { get; set; }    }
+
+        [DataMember(Name = "tags")]
+        public List<TagDto> Tags { get; set; }
+    }
 }

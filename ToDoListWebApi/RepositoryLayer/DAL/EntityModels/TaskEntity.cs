@@ -17,6 +17,7 @@ namespace RepositoryLayer.DAL.EntityModels
 
         [Required]
         public CategoryEntity Category { get; set; }
-        public ICollection<TaskTag> Tags { get; set; }
+
+        public List<TaskTag> Tags { get; set; }
     }
 }

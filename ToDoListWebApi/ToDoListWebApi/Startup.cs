@@ -12,8 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RepositoryLayer;
 using RepositoryLayer.DAL;
 using RepositoryLayer.DAL.EntityModels;
+using RepositoryLayer.Interfaces;
 using ToDoListWebApi.Helpers;
 
 namespace ToDoListWebApi
@@ -32,10 +34,13 @@ namespace ToDoListWebApi
             string connectionStr = Configuration.GetConnectionString("SQLConnection");
             services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connectionStr));
 
+            services.AddScoped<IRepository, SQLRepository>(_serviveProvider =>
+                    new SQLRepository(_serviveProvider.GetService<ToDoContext>())
+                );
+
             services.AddIdentity<UserEntity, IdentityRole>()
                    .AddEntityFrameworkStores<ToDoContext>()
                    .AddDefaultTokenProviders();
-
 
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
             {
