@@ -13,7 +13,7 @@ namespace RepositoryLayer.Helpers
         {
             CreateMap<TaskEntity, TaskDto>();
             CreateMap<TaskTag, TagDto>().ConvertUsing(tt =>
-                new TagDto { Id = tt.Tag.Id, Color = tt.Tag.Color, Name = tt.Tag.Name}
+                new TagDto { Id = tt.Tag.Id, Color = tt.Tag.Color, Name = tt.Tag.Name }
             );
 
             CreateMap<CategoryEntity, CategoryDto>();
