@@ -20,7 +20,6 @@ export class TasksComponent implements OnInit {
     this.titleService.setTitle('Tasks');
     this.httpService.GetTasks().subscribe((data:Task[]) => {
       this.tasks = data;
-      console.log(this.tasks);
     });
   }
 

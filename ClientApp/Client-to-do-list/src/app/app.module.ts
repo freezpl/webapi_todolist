@@ -1,26 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-//import { MyComponent } from './components/my/my.component';
-//import { CarComponent } from './components/car/car.component';
-//import { CarsComponent } from './components/cars/cars.component';
-//import { AddCarComponent } from './components/add-car/add-car.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormatDatePipe } from './pipes/format-date.pipe';
+import { AddTaskComponent } from './components/add-task/add-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
+    FormatDatePipe,
+    AddTaskComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

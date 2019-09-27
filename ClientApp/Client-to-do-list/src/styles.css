@@ -1,3 +1,32 @@
 body{
     margin-top: 30px;
 }
+
+.task-tags span {
+    margin-right: 7px;
+}
+
+.priority p{
+    margin: 0;
+    font-size: 13px;
+}
+
+#navbarNavDropdown li{
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#navbarNavDropdown li a{
+    text-decoration: none;
+    color: #71a2ff;
+}
+
+#navbarNavDropdown li a:hover{
+    color: #002363;
+    transition: color .4s;
+}
+
+.top-menu{
+    margin-bottom: 20px;
+}
