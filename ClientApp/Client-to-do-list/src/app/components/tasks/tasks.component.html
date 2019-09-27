@@ -1,1 +1,13 @@
 <p>tasks works!</p>
+<div class="row">
+    <div *ngFor="let task of tasks" class="col-sm-4 task-item">
+        <div class="card">
+            <div class="card-body">
+            <div class="card-title">{{task.description}}</div>
+            <h6 class="card-subtitle mb-2 text-muted">{{task.category.name}}</h6>
+            <progress value="task" max="5"></progress>
+        </div>
+        </div>
+    </div>
+
+</div>

@@ -9,13 +9,13 @@ import { map } from 'rxjs/operators';
 })
 export class HttpService {
 
-  private readonly path:string = 'https://localhost:5001/';
+  private readonly path:string = 'http://localhost:5000/';
   private readonly headers = new HttpHeaders({
    'Content-Type': 'application/json; charset=utf8'
  });
 
   constructor(private client:HttpClient) {
- 
+    
    }
 
    GetTasks(){
