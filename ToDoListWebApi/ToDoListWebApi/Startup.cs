@@ -40,6 +40,7 @@ namespace ToDoListWebApi
 
             services.AddIdentity<UserEntity, IdentityRole>()
                    .AddEntityFrameworkStores<ToDoContext>()
+                   //.AddUserManager<AppUserManager>()
                    .AddDefaultTokenProviders();
 
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>

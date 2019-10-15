@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 
+import { AccountModule } from './modules/account/account.module'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AccountModule
   ],
   providers: [],
   bootstrap: [AppComponent]
