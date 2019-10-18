@@ -6,7 +6,9 @@ using RepositoryLayer.DAL.EntityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace ToDoListWebApi.Helpers
 {
@@ -15,7 +17,15 @@ namespace ToDoListWebApi.Helpers
         public static void EnshurePopulated(IApplicationBuilder builder)
         {
             ToDoContext context = (ToDoContext)builder.ApplicationServices.GetService(typeof(ToDoContext));
+            UserManager<UserEntity> userManager = (UserManager<UserEntity>)builder.ApplicationServices.GetService(typeof(UserManager<UserEntity>));
             context.Database.Migrate();
+
+            if(userManager.Users.Count() == 0)
+            {
+                userManager.CreateAsync(new UserEntity { Email = "a@a.ua", UserName = "pasha" }, "123Qweasd!");
+            }
+
+
 
             if (!context.Tasks.Any())
             {

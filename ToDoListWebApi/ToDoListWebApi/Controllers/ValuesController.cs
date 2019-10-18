@@ -21,10 +21,11 @@ namespace ToDoListWebApi.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<List<UserEntity>> Get()
         {
-            //var u = _userManager.Users;
-            return new string[] { "value1", "value2" };
+            var u = _userManager.Users.ToList();
+            return u;
+            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

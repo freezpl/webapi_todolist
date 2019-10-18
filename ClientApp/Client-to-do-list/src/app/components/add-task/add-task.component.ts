@@ -22,8 +22,6 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(){
     this.httpService.GetCategories().subscribe(data => {
-      console.log(data);
-
       this.form = new FormGroup({
         description: new FormControl('', Validators.required),
         category: new FormControl('', Validators.required),
