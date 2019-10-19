@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DtoModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Interfaces;
 
@@ -20,6 +21,7 @@ namespace ToDoListWebApi.Controllers.Common
         }
 
         [HttpGet]
+        [Authorize("Bearer")]
         public async Task<IEnumerable<TaskDto>>Get()
         {
            return await _repository.GetTasks();

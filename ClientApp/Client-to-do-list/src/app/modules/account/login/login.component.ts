@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private httpService:HttpService) { 
     this.form = new FormGroup({
-      login: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      login: new FormControl('a@a.ua', [Validators.required, Validators.email]),
+      password: new FormControl('123Qweasd!', [Validators.required, Validators.minLength(3)]),
     });
   }
 
@@ -24,8 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   submit(){
-    this.user = {login: this.form.get('login').value, password: this.form.get('password').value};
-    console.log(this.user);
+    let user:UserLogin = {email: this.form.get('login').value, password: this.form.get('password').value};
+   
+    this.httpService.Login(user).subscribe((data:any)=>{
+      console.log(data);
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("id", data.user_id);
+    });
   }
 
 }

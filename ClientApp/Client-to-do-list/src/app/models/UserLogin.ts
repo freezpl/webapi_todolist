@@ -1,4 +1,4 @@
 export class UserLogin { 
-    login:string;
+    email:string;
     password:string;
 }
