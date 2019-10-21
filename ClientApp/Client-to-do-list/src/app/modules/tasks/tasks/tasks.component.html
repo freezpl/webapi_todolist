@@ -1,4 +1,5 @@
 <div class="row">
+    Tasks
     <div *ngFor="let task of tasks" class="col-sm-4 task-item">
         <div class="card">
             <div class="card-body">
@@ -14,7 +15,7 @@
                     {{tag.name}}</span>
             </div>
             <div class="task-date">
-                <p>Date: <span [innerHTML]="task.date|formatDate"></span></p>
+                <p>Date: <span [innerHTML]="task.date"></span></p>
                 </div>
         </div>
         </div>

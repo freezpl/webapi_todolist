@@ -9,11 +9,10 @@ import { Task } from 'src/app/models/Task';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-
+  
   tasks:Task[];
-
   constructor(private titleService: Title, private httpService:HttpService){
-    
+
   }
 
   ngOnInit(){

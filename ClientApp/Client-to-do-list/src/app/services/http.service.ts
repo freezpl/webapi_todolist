@@ -10,7 +10,7 @@ import { UserLogin } from '../models/UserLogin';
 })
 export class HttpService {
 
-  private readonly path:string = 'http://localhost:5000/';
+  private readonly path:string = 'https://localhost:5000/';
   private headers:HttpHeaders;
 
   constructor(private client:HttpClient) {
@@ -22,8 +22,7 @@ export class HttpService {
         //'Content-Type': 'application/json; charset=utf8',
         //'Authorization': "Bearer "+localStorage.getItem('token'),
         'Authorization' : 'Bearer ' + localStorage.getItem('token')
-      });
-      console.log(this.headers);    
+      });   
     return this.client.get(`${this.path}tasks`, {headers:this.headers});
     }
   

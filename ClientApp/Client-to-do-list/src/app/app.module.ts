@@ -5,17 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { TasksComponent } from './components/tasks/tasks.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 
 import { AccountModule } from './modules/account/account.module'
+import { HomeModule } from './modules/tasks/home.module'
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent,
     FormatDatePipe,
     AddTaskComponent,
   ],
@@ -25,7 +24,8 @@ import { AccountModule } from './modules/account/account.module'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AccountModule
+    AccountModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
