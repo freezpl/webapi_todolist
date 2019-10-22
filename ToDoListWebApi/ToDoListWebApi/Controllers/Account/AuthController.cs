@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DtoModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,14 @@ namespace ToDoListWebApi.Controllers.Account
         {
             _userManager = userManager;
         }
+
+        [HttpGet]
+        [Authorize("Bearer")]
+        public bool Check()
+        {
+            return true;
+        }
+
 
         [HttpPost]
         public async Task<string> Login(LoginDto user)

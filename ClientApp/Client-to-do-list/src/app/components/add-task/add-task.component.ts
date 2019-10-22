@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from 'src/app/models/Task';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Category } from 'src/app/models/Category';
-import { HttpService } from 'src/app/services/http.service';
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-add-task',
@@ -16,12 +16,12 @@ export class AddTaskComponent implements OnInit {
 
   task:Task;
 
-  constructor(private httpService:HttpService) {
+  constructor(private tasksService:TasksService) {
     
   }
 
   ngOnInit(){
-    this.httpService.GetCategories().subscribe(data => {
+    this.tasksService.GetCategories().subscribe(data => {
       this.form = new FormGroup({
         description: new FormControl('', Validators.required),
         category: new FormControl('', Validators.required),
@@ -32,5 +32,4 @@ export class AddTaskComponent implements OnInit {
   submit(){
     console.log(this.form.value);
   }
-
 }
