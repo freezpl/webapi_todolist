@@ -9,7 +9,6 @@ import { Task } from 'src/app/models/Task';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-  
   tasks:Task[];
   constructor(private titleService: Title, private tasksService:TasksService){
     
@@ -19,7 +18,11 @@ export class TasksComponent implements OnInit {
     this.titleService.setTitle('Tasks');
     this.tasksService.GetTasks().subscribe((data:Task[]) => {
       this.tasks = data;
-    });
+    },
+    (data) => {
+      console.log(data);
+    }
+    );
   }
 
 }

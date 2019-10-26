@@ -46,14 +46,18 @@ namespace ToDoListWebApi
                    //.AddUserManager<AppUserManager>()
                    .AddDefaultTokenProviders();
 
-            services.AddAuthorization(auth =>
-            {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-                    .RequireAuthenticatedUser().Build());
-            });
+            //services.AddAuthorization(auth =>
+            //{
+            //    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            //        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+            //        .RequireAuthenticatedUser().Build());
+            //});
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(cfg =>
+            {
+                cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                     .AddJwtBearer(options =>
                     {
                         options.RequireHttpsMetadata = false;

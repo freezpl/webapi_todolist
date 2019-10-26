@@ -28,7 +28,8 @@ namespace ToDoListWebApi.Controllers.Account
         }
 
         [HttpGet]
-        [Authorize("Bearer")]
+        //[Authorize("Bearer")]
+        [Authorize]
         public bool Check()
         {
             return true;

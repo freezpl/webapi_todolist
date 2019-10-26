@@ -6,6 +6,7 @@ using DtoModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.Interfaces;
+using ToDoListWebApi.Helpers;
 
 namespace ToDoListWebApi.Controllers.Common
 {
@@ -21,7 +22,10 @@ namespace ToDoListWebApi.Controllers.Common
         }
 
         [HttpGet]
-        [Authorize("Bearer")]
+        [CustomAuthorize]
+        [Authorize]
+        [ValidateModel]
+        //[Authorize("Bearer")]
         public async Task<IEnumerable<TaskDto>>Get()
         {
            return await _repository.GetTasks();
