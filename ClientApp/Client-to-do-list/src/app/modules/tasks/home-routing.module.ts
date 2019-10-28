@@ -6,11 +6,11 @@ import { TasksComponent } from './tasks/tasks.component';
 const routes: Routes = [
   // {path: '', component: HomeComponent, 
   //              children:[{path: 'tasks', component: TasksComponent}]},
-  {path: '', redirectTo: 'tasks/', pathMatch: 'full' },
+  {path: '', redirectTo: 'tasks', pathMatch: 'full' },
   {path: '', component: HomeComponent, 
                children:[
-                 {path: 'tasks/', component: TasksComponent},
-                 {path: 'add-task/', component: TasksComponent},
+                 {path: 'tasks', component: TasksComponent},
+                 {path: 'add-task', component: TasksComponent},
               ]},
 ];
 
