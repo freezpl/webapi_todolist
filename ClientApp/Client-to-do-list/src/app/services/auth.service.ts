@@ -7,6 +7,9 @@ import { UserLogin } from '../models/UserLogin';
 import {API_PATH} from '../global_settings'
 import { HeadersService } from './headers.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { JsonPipe } from '@angular/common';
+import { UserRegister } from '../models/UserRegister';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +29,17 @@ export class AuthService {
     logout(){
       localStorage.clear();
       this.router.navigateByUrl('/account');
+    }
+
+    checkEmail(email:string){
+      
+      return this.client.get(`${API_PATH}api/auth/check/${email}`,  
+                                {headers:this.headers.JsonContentHeaders()});
+    }
+
+    register(user:UserRegister){
+      return this.client.post(`${API_PATH}api/auth`, 
+                                user, 
+                                {headers:this.headers.TokenHeaders()});
     }
 }

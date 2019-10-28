@@ -27,12 +27,10 @@ namespace ToDoListWebApi.Controllers.Account
             _userManager = userManager;
         }
 
-        [HttpGet]
-        //[Authorize("Bearer")]
-        [Authorize]
-        public bool Check()
+        [HttpGet("check/{login}")]
+        public async Task<bool> CheckLogin(string login)
         {
-            return true;
+            return (await _userManager.FindByEmailAsync(login) != null) ? true : false;
         }
 
 

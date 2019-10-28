@@ -1,25 +1,34 @@
 <h2>Registration</h2>
-<div [ngClass]="{'has-error': error}" class="row">
-    <p *ngIf="error" class="alert alert-danger">Wrong login or password</p>
-  </div>
+
 <div class="row">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-            <div class="form-group" [ngClass]="{'has-error': form.get('login').invalid && form.get('login').touched}">
-              <label>Login</label>
-              <input type="text" class="form-control" formControlName="login">
-              <p *ngIf="form.get('login').invalid && form.get('login').touched" class="alert alert-danger">Enter email!</p>
-            </div>
-            <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" formControlName="password">
-                    <p *ngIf="form.get('password').invalid && form.get('password').touched" class="alert alert-danger">Enter password!</p>
-                  </div>
-          <button
-            class="btn btn-success"
-            type="submit"
-            [disabled]="form.invalid"
-          >Login</button>
-        </form>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group" [ngClass]="{'has-error': form.get('login').invalid && form.get('login').touched}">
+      <label>Login</label>
+      <input type="text" class="form-control" formControlName="login">
+      <div *ngIf="form.get('login').errors && form.get('login').touched" class="alert alert-danger">
+        <span *ngIf="form.get('login').errors['busy']">This email is busy!</span>
+        <span *ngIf="form.get('login').errors['email']">Wrong email!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password">
+      <p *ngIf="form.get('password').invalid && form.get('password').touched" class="alert alert-danger">Enter password!
+      </p>
+    </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" class="form-control" formControlName="passwordConfirm">
+      <p *ngIf="form.get('passwordConfirm').invalid && form.get('passwordConfirm').touched" class="alert alert-danger">Passwords is not mutch!
+      </p>
+      <div *ngIf="form.errors" class="alert alert-danger">
+        <p *ngIf="form.errors['notSame']">Passwords not mutch!</p>
+      </div>
+      
+
+    </div>
+    <button class="btn btn-success" type="submit" [disabled]="form.invalid">Login</button>
+  </form>
 </div>
 <div class="row">
   <a routerLink='/account/register/' class="reg">Register</a>

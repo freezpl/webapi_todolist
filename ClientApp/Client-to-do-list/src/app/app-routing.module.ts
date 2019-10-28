@@ -13,35 +13,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-
-// const appRoutes: Routes = [
-
-//   //Site routes goes here 
-//   { 
-//       path: '', 
-//       component: SiteLayoutComponent,
-//       children: [
-//         { path: '', component: HomeComponent, pathMatch: 'full'},
-//         { path: 'about', component: AboutComponent }
-//       ]
-//   },
-
-//   // App routes goes here here
-//   { 
-//       
-//       component: AppLayoutComponent, 
-//       children: [
-//         { path: 'dashboard', component: DashboardComponent },
-//         { path: 'profile', component: ProfileComponent }
-//       ]
-//   },
-
-//   //no layout routes
-//   { path: 'login', component: LoginComponent},
-//   { path: 'register', component: RegisterComponent },
-//   // otherwise redirect to home
-//   { path: '**', redirectTo: '' }
-// ];
-
-// export const routing = RouterModule.forRoot(appRoutes);
