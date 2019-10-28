@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/models/Task';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-tasks',
@@ -10,7 +11,10 @@ import { Task } from 'src/app/models/Task';
 })
 export class TasksComponent implements OnInit {
   tasks:Task[];
-  constructor(private titleService: Title, private tasksService:TasksService){
+  constructor(private titleService: Title, 
+              private tasksService:TasksService,
+              private errorHandlerService: ErrorHandlerService
+    ){
     
   }
 
@@ -20,7 +24,7 @@ export class TasksComponent implements OnInit {
       this.tasks = data;
     },
     (data) => {
-      console.log(data);
+      this.errorHandlerService.loadDataError(data);
     }
     );
   }
