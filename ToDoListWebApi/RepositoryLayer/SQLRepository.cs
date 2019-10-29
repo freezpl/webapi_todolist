@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DtoModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.DAL.EntityModels;
 using RepositoryLayer.Helpers;
@@ -15,8 +16,9 @@ namespace RepositoryLayer
     {
         DbContext _context;
         IMapper _mapper;
+        UserManager<UserEntity> _userManager;
 
-        public SQLRepository(DbContext context)
+        public SQLRepository(DbContext context, UserManager<UserEntity> userManager)
         {
             _context = context;
 

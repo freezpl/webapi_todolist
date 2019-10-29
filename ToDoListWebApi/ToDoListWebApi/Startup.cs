@@ -38,7 +38,7 @@ namespace ToDoListWebApi
             services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connectionStr));
 
             services.AddScoped<IRepository, SQLRepository>(_serviveProvider =>
-                    new SQLRepository(_serviveProvider.GetService<ToDoContext>())
+                    new SQLRepository(_serviveProvider.GetService<ToDoContext>(), _serviveProvider.GetService<UserManager<UserEntity>>())
                 );
 
             services.AddIdentity<UserEntity, IdentityRole>()

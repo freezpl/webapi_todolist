@@ -33,6 +33,13 @@ namespace ToDoListWebApi.Controllers.Account
             return (await _userManager.FindByEmailAsync(login) != null) ? true : false;
         }
 
+        //[HttpPost("register")]
+        //public async Task<string> Register(RegisterDto user)
+        //{
+
+        
+        //}
+
 
         [HttpPost]
         public async Task<string> Login(LoginDto user)
