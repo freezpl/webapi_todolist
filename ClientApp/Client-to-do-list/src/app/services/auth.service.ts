@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     register(user:UserRegister){
-      return this.client.post(`${API_PATH}api/auth`, 
+      return this.client.post(`${API_PATH}api/auth/register`, 
                                 user, 
                                 {headers:this.headers.TokenHeaders()});
     }

@@ -33,13 +33,13 @@ namespace ToDoListWebApi.Controllers.Account
             return (await _userManager.FindByEmailAsync(login) != null) ? true : false;
         }
 
-        //[HttpPost("register")]
-        //public async Task<string> Register(RegisterDto user)
-        //{
-
-        
-        //}
-
+        [HttpPost("register")]
+        public async Task<bool> Register(RegisterDto user)
+        {
+            UserEntity userEntity = new UserEntity { Email = user.Email, UserName = user.Name  };
+            IdentityResult res = await _userManager.CreateAsync(userEntity, user.Password);
+            return (res.Succeeded) ? true : false;
+        }
 
         [HttpPost]
         public async Task<string> Login(LoginDto user)

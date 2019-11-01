@@ -20,12 +20,11 @@ namespace ToDoListWebApi.Helpers
             UserManager<UserEntity> userManager = (UserManager<UserEntity>)builder.ApplicationServices.GetService(typeof(UserManager<UserEntity>));
             context.Database.Migrate();
 
-            if(userManager.Users.Count() == 0)
+            if (userManager.Users.Count() == 0)
             {
-                userManager.CreateAsync(new UserEntity { Email = "a@a.ua", UserName = "pasha" }, "123Qweasd!");
+                userManager.CreateAsync(new UserEntity { Email = "a@a.ua", UserName = "pasha" }, "123Qweasd!").Wait();
+   
             }
-
-
 
             if (!context.Tasks.Any())
             {
@@ -49,13 +48,18 @@ namespace ToDoListWebApi.Helpers
 
                 context.AddRange(categories);
 
+                Task<UserEntity> task = userManager.FindByEmailAsync("a@a.ua");
+                task.Wait();
+                UserEntity userEntity = task.Result;
+
                 //addTasks
                 TaskEntity task1 = new TaskEntity
                 {
                     Description = "Зробити домашку по WebApi",
                     Category = categories[0],
                     Date = DateTime.Now - TimeSpan.FromDays(1),
-                    Priority = 1
+                    Priority = 1,
+                    User = userEntity
                 };
 
                 context.Add<TaskEntity>(task1);
@@ -71,7 +75,8 @@ namespace ToDoListWebApi.Helpers
                     Description = "Випити пивка з друзями",
                     Category = categories[2],
                     Date = DateTime.Now + TimeSpan.FromDays(1),
-                    Priority = 5
+                    Priority = 5,
+                    User = userEntity
                 };
 
                 context.Add<TaskEntity>(task2);
@@ -83,6 +88,7 @@ namespace ToDoListWebApi.Helpers
                 }
 
                 context.SaveChanges();
+
             }
 
         }

@@ -6,6 +6,7 @@ import { Promise } from 'q';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EmailAccessValidator } from 'src/app/validators/EmailAccessValidator';
+import { UserRegister } from 'src/app/models/UserRegister';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
     private emailAccessValidator: EmailAccessValidator ) {
     this.form = new FormGroup({
       login: new FormControl('a@a.ua',  [Validators.email],  emailAccessValidator.checkEmail.bind(this.emailAccessValidator)),
+      name: new FormControl('Pasha',  [Validators.required]),
       password: new FormControl('123Qweasd!', [Validators.required, Validators.minLength(3)]),
       passwordConfirm: new FormControl('123Qweasd!' ,[Validators.required]),
     }, { validators: [this.checkPasswords] }
@@ -38,5 +40,24 @@ export class RegisterComponent implements OnInit {
   
   ngOnInit() {
   }
+
+  submit(){
+    let user:UserRegister = {email: this.form.get('login').value, name : this.form.get('name').value, password : this.form.get('password').value }
+    this.authService.register(user).subscribe(
+      (data)=>{
+        if(data){
+          this.authService.login(user).subscribe((data:any)=>{
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("username", data.username);
+            localStorage.setItem("id", data.user_id);
+            this.router.navigateByUrl("");
+          });
+        }
+      }
+      );
+  }
+
+  
+    
 
 }

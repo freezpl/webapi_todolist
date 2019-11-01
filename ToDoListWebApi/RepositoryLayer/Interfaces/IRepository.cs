@@ -9,5 +9,6 @@ namespace RepositoryLayer.Interfaces
     public interface IRepository
     {
         Task<IEnumerable<TaskDto>> GetTasks();
+        Task<IEnumerable<TaskDto>> GetUserTasks(string name);
     }
 }

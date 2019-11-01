@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.DAL;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    partial class ToDoContextModelSnapshot : ModelSnapshot
+    [Migration("20191031085917_tasksadded")]
+    partial class tasksadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,14 +180,13 @@ namespace RepositoryLayer.Migrations
 
                     b.Property<int>("Priority");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserEntityId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("Tasks");
                 });
@@ -306,10 +307,9 @@ namespace RepositoryLayer.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("RepositoryLayer.DAL.EntityModels.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("RepositoryLayer.DAL.EntityModels.UserEntity")
+                        .WithMany("Tasks")
+                        .HasForeignKey("UserEntityId");
                 });
 
             modelBuilder.Entity("RepositoryLayer.DAL.EntityModels.TaskTag", b =>

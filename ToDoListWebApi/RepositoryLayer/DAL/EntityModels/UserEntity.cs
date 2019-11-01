@@ -7,6 +7,6 @@ namespace RepositoryLayer.DAL.EntityModels
 {
     public class UserEntity : IdentityUser
     {
-
+      
     }
 }

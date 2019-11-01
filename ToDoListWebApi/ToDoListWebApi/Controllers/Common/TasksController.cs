@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DtoModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryLayer.DAL.EntityModels;
 using RepositoryLayer.Interfaces;
 using ToDoListWebApi.Helpers;
 
@@ -15,10 +17,13 @@ namespace ToDoListWebApi.Controllers.Common
     public class TasksController : Controller
     {
         IRepository _repository;
+        UserManager<UserEntity> _userManager;
 
-        public TasksController(IRepository repository)
+        public TasksController(IRepository repository, 
+                                UserManager<UserEntity> userManager)
         {
             _repository = repository;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -28,7 +33,8 @@ namespace ToDoListWebApi.Controllers.Common
         //[Authorize("Bearer")]
         public async Task<IEnumerable<TaskDto>>Get()
         {
-           return await _repository.GetTasks();
+            string name = HttpContext.User.Identity.Name;
+           return await _repository.GetUserTasks(name);
         }
     }
 }

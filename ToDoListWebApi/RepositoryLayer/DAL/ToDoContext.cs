@@ -22,7 +22,6 @@ namespace RepositoryLayer.DAL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<TaskTag>().HasKey(tt => new { tt.TaskId, tt.TagId });
-
             builder.Entity<TaskTag>().HasOne(tt => tt.Task).WithMany(task => task.Tags).HasForeignKey(tt => tt.TaskId);
             builder.Entity<TaskTag>().HasOne(tt => tt.Tag).WithMany(tag => tag.Tasks).HasForeignKey(tt => tt.TagId);
 
