@@ -49,5 +49,11 @@ namespace RepositoryLayer
                 .ToListAsync();
             return _mapper.Map<IEnumerable<TaskEntity>, IEnumerable<TaskDto>>(tasks);
         }
+
+        public async Task<List<CategoryDto>> GetCategories()
+        {
+            List<CategoryEntity> categories = await _context.Set<CategoryEntity>().ToListAsync();
+            return _mapper.Map<List<CategoryEntity>, List<CategoryDto>>(categories);
+        }
     }
 }

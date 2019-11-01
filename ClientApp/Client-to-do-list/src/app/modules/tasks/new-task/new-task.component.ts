@@ -13,6 +13,7 @@ export class NewTaskComponent implements OnInit {
 
   form: FormGroup;
   categories: Category[];
+  default: string = 'One';
 
   task:Task;
 
@@ -21,10 +22,17 @@ export class NewTaskComponent implements OnInit {
   }
 
   ngOnInit(){
+    
+    this.form = new FormGroup({
+      description: new FormControl('', Validators.required),
+      category: new FormControl(null),
+    });
+    
+    this.categories = [{id: 1, name: "One"}, {id: 2, name: "Two"}, {id: 3, name: "Three"}];
+    this.form.controls['category'].setValue(this.categories[0].id);
+    
     this.tasksService.GetCategories().subscribe(data => {
-      this.form = new FormGroup({
-        description: new FormControl('', Validators.required),
-      });
+      
     });
   }
 

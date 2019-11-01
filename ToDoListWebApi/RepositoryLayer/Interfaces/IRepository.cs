@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interfaces
     {
         Task<IEnumerable<TaskDto>> GetTasks();
         Task<IEnumerable<TaskDto>> GetUserTasks(string name);
+        Task<List<CategoryDto>> GetCategories();
     }
 }

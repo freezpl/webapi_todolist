@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ import { NewTaskComponent } from './new-task/new-task.component';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class HomeModule { }
