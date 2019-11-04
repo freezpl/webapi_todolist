@@ -25,12 +25,14 @@ namespace ToDoListWebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IServiceProvider ServiceProvider { get; }
+
+        public Startup(IConfiguration configuration, IServiceProvider serviceProvider)
         {
             Configuration = configuration;
+            ServiceProvider = serviceProvider;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -41,7 +43,16 @@ namespace ToDoListWebApi
                     new SQLRepository(_serviveProvider.GetService<ToDoContext>(), _serviveProvider.GetService<UserManager<UserEntity>>())
                 );
 
-            services.AddIdentity<UserEntity, IdentityRole>()
+            services.AddScoped(s=>new AuthOptions(Configuration));
+
+            services.AddIdentity<UserEntity, IdentityRole>(opts =>
+            {
+                opts.Password.RequiredLength = 4;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            })
                    .AddEntityFrameworkStores<ToDoContext>()
                    //.AddUserManager<AppUserManager>()
                    .AddDefaultTokenProviders();
@@ -56,20 +67,24 @@ namespace ToDoListWebApi
             services.AddAuthentication(cfg =>
             {
                 cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                cfg.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                     .AddJwtBearer(options =>
                     {
                         options.RequireHttpsMetadata = false;
+                        options.SaveToken = true;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            ValidateIssuer = true,
-                            ValidIssuer = AuthOptions.ISSUER,
-                            ValidateAudience = true,
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            ValidateLifetime = true,
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration.GetValue<string>("JwtOptions:issuer"),
+                            ValidAudience = Configuration.GetValue<string>("JwtOptions:audience"),
+                            ValidateLifetime = Configuration.GetValue<bool>("JwtOptions:validateLifetime"),
+                            //IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(services),
+                            IssuerSigningKey = ServiceProvider.GetService<AuthOptions>().GetKey(),
+
+                            //ValidateIssuerSigningKey = true,
+                            //ValidateIssuer = true,
+                            //ValidateAudience = true,
                         };
                     });
 

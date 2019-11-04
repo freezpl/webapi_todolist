@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,21 @@ namespace ToDoListWebApi.Helpers
         const string KEY = "mysupersecret_secretkey!123";
         public const int LIFETIME = 1;
 
-        public static SymmetricSecurityKey GetSymmetricSecurityKey()
+        private readonly IConfiguration _config;
+
+        public AuthOptions(IConfiguration configuration)
         {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
+            _config = configuration;
+        }
+
+        public SymmetricSecurityKey GetKey()
+        {
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetValue<string>("JwtOptions:key")));
+        }
+
+        public static SymmetricSecurityKey GetSymmetricSecurityKey()
+        { 
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
         }
     }
 }
