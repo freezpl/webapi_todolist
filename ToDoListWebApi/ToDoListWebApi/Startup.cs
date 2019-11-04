@@ -55,16 +55,8 @@ namespace ToDoListWebApi
                    //.AddUserManager<AppUserManager>()
                    .AddDefaultTokenProviders();
 
-            //services.AddAuthorization(auth =>
-            //{
-            //    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-            //        .RequireAuthenticatedUser().Build());
-            //});
 
-
-
-           // ServiceProvider serviceProvider = services.BuildServiceProvider();
+           ServiceProvider serviceProvider = services.BuildServiceProvider();
             services.AddAuthentication(cfg =>
             {
                 cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -80,12 +72,7 @@ namespace ToDoListWebApi
                             ValidIssuer = Configuration.GetValue<string>("JwtOptions:issuer"),
                             ValidAudience = Configuration.GetValue<string>("JwtOptions:audience"),
                             ValidateLifetime = Configuration.GetValue<bool>("JwtOptions:validateLifetime"),
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            //IssuerSigningKey = serviceProvider.GetService<AuthOptions>().GetKey(),
-
-                            //ValidateIssuerSigningKey = true,
-                            //ValidateIssuer = true,
-                            //ValidateAudience = true,
+                            IssuerSigningKey = serviceProvider.GetService<AuthOptions>().GetKey(),
                         };
                     });
 

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DtoModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.DAL.EntityModels;
@@ -32,9 +35,12 @@ namespace ToDoListWebApi.Controllers.Common
         [ValidateModel]
         //[Authorize("Bearer")]
         public async Task<IEnumerable<TaskDto>>Get()
-        {
-            string name = HttpContext.User.Identity.Name;
-           return await _repository.GetUserTasks(name);
+        { 
+            var id = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+           var name = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+           var email = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+            string namesdd = HttpContext.User.Identity.Name;
+           return await _repository.GetUserTasks(id);
         }
     }
 }

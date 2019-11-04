@@ -41,9 +41,10 @@ namespace RepositoryLayer
             return _mapper.Map<IEnumerable<TaskEntity>, IEnumerable<TaskDto>>(tasks);
         }
 
-        public async Task<IEnumerable<TaskDto>> GetUserTasks(string name)
+        public async Task<IEnumerable<TaskDto>> GetUserTasks(string id)
         {
-            var user = await _userManager.FindByEmailAsync(name);
+            //var user = await _userManager.FindByEmailAsync(name);
+            var user = await _userManager.FindByIdAsync(id);
             List<TaskEntity> tasks = await _context.Set<TaskEntity>().Where(x => x.User.Id == user.Id)
                 .Include(t => t.Category).Include(t => t.Tags).ThenInclude(tag => tag.Tag)
                 .ToListAsync();

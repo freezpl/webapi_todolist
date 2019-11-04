@@ -21,10 +21,12 @@ namespace ToDoListWebApi.Controllers.Account
     public class AuthController : ControllerBase
     {
         UserManager<UserEntity> _userManager;
+        AuthOptions _authOptions;
 
-        public AuthController(UserManager<UserEntity> userManager)
+        public AuthController(UserManager<UserEntity> userManager, AuthOptions authOptions)
         {
             _userManager = userManager;
+            _authOptions = authOptions;
         }
 
         [HttpGet("check/{login}")]
@@ -53,23 +55,7 @@ namespace ToDoListWebApi.Controllers.Account
                 return "Invalid username or password.";
             }
 
-            var now = DateTime.UtcNow;
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: loginData.Value.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = loginData.Key.Email,
-                user_id = loginData.Key.Id
-            };
-            return JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented });
+            return _authOptions.GenerateToken(loginData);
         }
 
         private async Task<KeyValuePair<UserEntity, ClaimsIdentity>> GetIdentity(string email, string password)
@@ -77,9 +63,14 @@ namespace ToDoListWebApi.Controllers.Account
             UserEntity user = await _userManager.FindByEmailAsync(email);
             if (user != null)
             {
+
+
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email)
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
                 };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
