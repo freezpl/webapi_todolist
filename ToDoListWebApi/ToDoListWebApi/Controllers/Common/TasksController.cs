@@ -30,16 +30,16 @@ namespace ToDoListWebApi.Controllers.Common
         }
 
         [HttpGet]
-        [CustomAuthorize]
+        //[CustomAuthorize]
         [Authorize]
-        [ValidateModel]
+        //[ValidateModel]
         //[Authorize("Bearer")]
         public async Task<IEnumerable<TaskDto>>Get()
         { 
             var id = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-           var name = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
-           var email = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
-            string namesdd = HttpContext.User.Identity.Name;
+           //var name = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+           //var email = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+           // string namesdd = HttpContext.User.Identity.Name;
            return await _repository.GetUserTasks(id);
         }
     }

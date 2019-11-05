@@ -17,11 +17,11 @@ export class TasksService {
 
     GetTasks(){ 
     return this.client.get(`${API_PATH}tasks`, {headers:this.headers.TokenHeaders()});
-    //return this.client.get(`${API_PATH}tasks`, {headers:this.headers.TokenHeaders()});
+  
     }
   
     GetCategories(){
-    return this.client.get(`${API_PATH}categories`, {headers:this.headers.TokenHeaders()});
+    return this.client.get(`${API_PATH}api/categories`, {headers:this.headers.TokenHeaders()});
     }
 
 }
