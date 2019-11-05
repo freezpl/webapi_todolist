@@ -2,28 +2,46 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-group"
       [ngClass]="{'has-error': form.get('description').invalid && form.get('description').touched}">
-      <label>Description</label>
+      <label>Description:</label>
       <input type="text" class="form-control" formControlName="description">
       <p *ngIf="form.get('description').invalid && form.get('description').touched" class="alert alert-danger">Required
         field</p>
     </div>
     <div class="form-group">
-      <label>Category</label>
+      <label>Category:</label>
       <select class="form-control" formControlName="category">
         <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
       </select>
     </div>
-
-    <div class="task-tags">
-      <span *ngFor="let tag of task.tags" class="badge badge-primary" [ngStyle]="{'background-color': tag.color}">
-        {{tag.name}}</span>
+    <div class="form-group"
+      [ngClass]="{'has-error': form.get('priority').invalid && form.get('priority').touched}">
+      <label>Priority:</label>
+      <input type="number" class="form-control" formControlName="priority" max="10" min="0">
+      <p *ngIf="form.get('priority').invalid && form.get('priority').touched" class="alert alert-danger">
+        Enter number from diapasone [0-10]
+      </p>
     </div>
 
-    <div class="add-tags">
-      <input (keyup)="onKey()" />
-      <button (click)="addTag()">Add Tag</button>
-    </div>
+    <div class="tags-block">
+      <div class="task-tags">
+        <span *ngFor="let tag of task.tags" class="badge badge-primary" [ngStyle]="{'background-color': tag.color}">
+          {{tag.name}}</span>
+      </div>
 
+      <div class="add-tags">
+        <input (keyup)="input()" #searchInput
+        [(ngModel)]="tagName" [ngModelOptions]="{standalone: true}"/>
+        <button (click)="addNewTag()" type="button">Add Tag</button>
+        <div *ngIf="searchTags.length" class="search-block">
+          <ul >
+            <li *ngFor="let tag of searchTags; let i = index" [id]="i" [ngStyle]="{'background-color':tag.color}"
+            (click)="addTag($event)">
+              {{tag.name}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <button class="btn btn-success" type="submit" [disabled]="form.invalid">ADD</button>
   </form>
 </div>

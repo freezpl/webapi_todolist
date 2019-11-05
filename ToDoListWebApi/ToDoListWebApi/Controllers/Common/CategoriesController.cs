@@ -11,7 +11,7 @@ using DtoModels;
 
 namespace ToDoListWebApi.Controllers.Common
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {

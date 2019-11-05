@@ -1,5 +1,4 @@
 <h2>Registration</h2>
-
 <div class="row">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-group" [ngClass]="{'has-error': form.get('login').invalid && form.get('login').touched}">
@@ -31,8 +30,6 @@
       <div *ngIf="form.errors" class="alert alert-danger">
         <p *ngIf="form.errors['notSame']">Passwords not mutch!</p>
       </div>
-      
-
     </div>
     <button class="btn btn-success" type="submit" [disabled]="form.invalid">Register</button>
   </form>
