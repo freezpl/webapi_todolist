@@ -25,5 +25,8 @@ namespace DtoModels
 
         [DataMember(Name = "tags")]
         public List<TagDto> Tags { get; set; }
+
+        [DataMember(Name = "userId")]
+        public string UserId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ import { Category } from 'src/app/models/Category';
 import { Task } from 'src/app/models/Task';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Tag } from 'src/app/models/Tag';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-task',
@@ -22,7 +23,7 @@ export class NewTaskComponent implements OnInit {
   tagName: string;
   searchTags: Tag[];
 
-  constructor(private tasksService: TasksService) {
+  constructor(private tasksService: TasksService, private router: Router) {
     this.tagName = "";
     this.task = new Task();
     this.task.tags = [];
@@ -45,14 +46,15 @@ export class NewTaskComponent implements OnInit {
   }
 
   submit() {
-  this.task.descripton = this.form.get('description').value;
+  this.task.description = this.form.get('description').value;
     this.task.category = this.categories.find(c => {
       return c.id == this.form.get('category').value;
     }); 
     this.task.priority = this.form.get('priority').value;
     console.log(this.task);
     this.tasksService.AddTask(this.task).subscribe((isAdded:boolean)=>{
-      console.log(isAdded)
+      console.log(isAdded);
+      this.router.navigateByUrl('/tasks');
     }, (err)=> {
       console.error(err);
     });

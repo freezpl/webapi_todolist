@@ -18,6 +18,11 @@ namespace RepositoryLayer.Helpers
 
             CreateMap<CategoryEntity, CategoryDto>();
             CreateMap<TagEntity, TagDto>();
+
+
+
+            //reverse
+            CreateMap<TagDto, TagEntity>();
         }
     }
 }

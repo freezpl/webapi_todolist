@@ -3,7 +3,7 @@ import { Tag } from './Tag';
 
 export class Task { 
     id:number;
-    descripton:string;
+    description:string;
     priority:number;
     category:Category;
     tags:Tag[];

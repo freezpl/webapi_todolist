@@ -13,6 +13,6 @@ namespace RepositoryLayer.Interfaces
         Task<List<CategoryDto>> GetCategories();
         Task<IEnumerable<TagDto>> GetTags(int limit = 0);
         Task<IEnumerable<TagDto>> SearchTags(string tagName, int limit = 0);
-
+        Task<bool> AddTask(TaskDto task);
     }
 }

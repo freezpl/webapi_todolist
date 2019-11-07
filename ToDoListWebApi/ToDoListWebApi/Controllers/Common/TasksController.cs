@@ -44,10 +44,10 @@ namespace ToDoListWebApi.Controllers.Common
         }
 
         [HttpPost("add")]
-        public bool Post(TaskDto task)
+        public async Task<bool> Post(TaskDto task)
         {
-            var ddd = task;
-            return true;
+            task.UserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return await _repository.AddTask(task);
         }
     }
 }
