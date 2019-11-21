@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import {createStore} from 'redux';
+import { Router } from 'react-router-dom';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import combineReducers from './store/reducers/mainReducer';
+import mainReducer from './store/reducers/mainReducer';
+import reduxThunk from 'redux-thunk';
+import history from './global/history';
 
-const store = createStore(combineReducers);
+const store = createStore(mainReducer, applyMiddleware(reduxThunk));
 
 const app = (
     <Provider store={store}>
-        <BrowserRouter>
+        <Router history = {history}>
             <App />
-        </BrowserRouter>
+        </Router>
     </Provider>
 );
 

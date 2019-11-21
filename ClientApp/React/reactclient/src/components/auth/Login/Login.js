@@ -17,7 +17,7 @@ class Login extends Component{
 
     submitHandler = event =>{
         event.preventDefault();
-        this.props.login(this.props.login, this.props.password);
+        this.props.login(this.state.email, this.state.password);
     }
 
     emailChange = (event)=>{
